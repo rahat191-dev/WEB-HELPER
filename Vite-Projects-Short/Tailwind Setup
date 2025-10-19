@@ -15,10 +15,20 @@ npx tailwindcss init -p
     ------------tailwind.config.js------------
 
 /** @type {import('tailwindcss').Config} */
-export default {
-  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"], // Tailwind কোন files scan করবে
+module.exports = {
+  content: [
+    "./index.html",
+    "./src/**/*.{js,ts,jsx,tsx}",
+  ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        brand: "#01a884",
+        primary: "#01a884",
+        txt: "white",
+        scndtxt: "black",
+      },
+    },
   },
   plugins: [],
 }
