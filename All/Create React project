@@ -1,0 +1,19 @@
+npx create-react-app frontend
+                      or
+npx create-react-app frontend --legacy-peer-deps
+
+
+npm create vite@latest frontend
+
+cd frontends
+
+npm install
+
+npm run dev
+
+npm start
+
+npm run build
+
+
+

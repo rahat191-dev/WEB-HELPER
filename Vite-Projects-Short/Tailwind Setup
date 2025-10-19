@@ -1,0 +1,30 @@
+    ------------frontend---------------
+
+npm install -D tailwindcss postcss autoprefixer
+npx tailwindcss init -p
+
+                OR
+
+sudo chown -R $USER:$USER
+npm uninstall tailwindcss postcss autoprefixer
+rm -rf node_modules package-lock.json
+npm install -D tailwindcss@3.3.3 postcss@8.4.32 autoprefixer@10.4.15
+ls node_modules/.bin
+npx tailwindcss init -p
+
+    ------------tailwind.config.js------------
+
+/** @type {import('tailwindcss').Config} */
+export default {
+  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"], // Tailwind কোন files scan করবে
+  theme: {
+    extend: {},
+  },
+  plugins: [],
+}
+
+       -----------------src/index.css-------------
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

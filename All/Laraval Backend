@@ -1,0 +1,73 @@
+composer create-project laravel/laravel backend
+
+       ---------------------
+
+cd backend
+php artisan serve
+
+      --------------------------------
+
+                routes/api.php
+
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProductController;
+
+Route::get('/products', [ProductController::class, 'index']);
+
+     -------------------------------
+
+php artisan make:controller ProductController
+
+             
+           ----------------------
+
+
+              app/Http/Controllers/ProductController.php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+
+class ProductController extends Controller {
+    public function index() {
+        return response()->json([
+            ['id' => 1, 'name' => 'Laptop'],
+            ['id' => 2, 'name' => 'Mobile']
+        ]);
+    }
+}
+
+
+        ------------------------
+
+            frontend  ------ App.js
+
+import { useEffect, useState } from "react";
+
+function App() {
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    fetch("http://127.0.0.1:8000/api/products")
+      .then(res => res.json())
+      .then(data => setProducts(data));
+  }, []);
+
+  return (
+    <div>
+      <h1>Product List</h1>
+      {products.map(p => (
+        <p key={p.id}>{p.name}</p>
+      ))}
+    </div>
+  );
+}
+
+export default App;
+
+         -----------------------
+
+npm start
+
+

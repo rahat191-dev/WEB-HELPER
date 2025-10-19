@@ -1,0 +1,10 @@
+
+
+mkdir frontend
+cd frontend
+
+
+mkdir backend
+cd backend
+npm init -y
+npm i cors dotenv express mongoose validator

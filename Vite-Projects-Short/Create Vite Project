@@ -1,0 +1,16 @@
+        ------------FRON-END-------------
+
+npm create vite@latest frontend
+cd frontend
+npm install
+npm install axios
+npm run dev
+
+         ------------BACK-END-------------
+
+mkdir backend
+cd backend
+npm init -y
+npm install express mongoose cors dotenv validator
+npm install --save-dev nodemon
+

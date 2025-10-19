@@ -1,0 +1,103 @@
+         ------------FRON-END-------------
+
+npx create-next-app@latest frontend
+cd frontend
+npm install axios @tanstack/react-query
+
+         ------------BACK-END-------------
+
+mkdir backend
+cd backend
+npm init -y
+npm install express mongoose cors dotenv validator
+npm install --save-dev nodemon
+
+
+-------backtend/server.js বা index.js ফাইল তৈরি করো:-------
+
+const express = require('express');
+const mongoose = require('mongoose');
+const cors = require('cors');
+require('dotenv').config();
+
+const app = express();
+
+// Middlewares
+app.use(cors());
+app.use(express.json());
+
+// Routes
+app.get('/', (req, res) => {
+  res.send('Backend is running');
+});
+
+// MongoDB connection
+mongoose.connect(process.env.MONGO_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+})
+.then(() => console.log('MongoDB connected'))
+.catch(err => console.log(err));
+
+// Start server
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+
+
+          ----------backend/.env ফাইল (backend)-------
+
+MONGO_URI=mongodb://localhost:27017/cakeDB
+PORT=5000
+
+      ---------------------------------------
+
+npm run dev
+
+  -----------React Query + Axios ব্যবহার করে API call:------
+         --------------frontend/src/api.js---------
+
+import axios from "axios";
+
+const API = axios.create({
+  baseURL: "http://localhost:5000", // Backend URL
+});
+
+export const getData = async () => {
+  const res = await API.get("/");
+  return res.data;
+};
+
+         -----------frontend/src/pages/index.js------
+
+import { useQuery } from "react-query";
+import { getData } from "../api";
+
+export default function Home() {
+  const { data, isLoading, error } = useQuery("getData", getData);
+
+  if (isLoading) return <p>Loading...</p>;
+  if (error) return <p>Error!</p>;
+
+  return (
+    <div>
+      <h1>Data from Backend:</h1>
+      <p>{data}</p>
+    </div>
+  );
+}
+
+ ------React Query Provider (frontend/src/pages/_app.js)----
+
+import { QueryClient, QueryClientProvider } from "react-query";
+import "../styles/globals.css";
+
+const queryClient = new QueryClient();
+
+export default function App({ Component, pageProps }) {
+  return (
+    <QueryClientProvider client={queryClient}>
+      <Component {...pageProps} />
+    </QueryClientProvider>
+  );
+}
+
